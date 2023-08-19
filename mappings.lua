@@ -15,12 +15,14 @@ return {
     ["[c"] = { ":cprevious<cr>", desc = "previous quickfix item" },
     ["L"] = { ":bn<cr>", desc = "next buffer" },
     ["H"] = { ":bp<cr>", desc = "previous buffer" },
-    ["<leader>m"] = { ":AsyncRun -program=make<cr>", desc = "Run make program async" },
+    ["<leader>s"] = { ":ClangdSwitchSourceHeader<cr>", desc = "siwtch source and header file" },
+    ["leader>m"] = { ":AsyncRun -program=make<cr>", desc = "Run make program async" },
     ["<leader>M"] = { ":AsyncRun -program=make && %:p:r<cr>", desc = "Run make program and execute async" },
   },
+
   i = {
-    ["<c-e>"] = { "<c-o>A", desc = "move to last of the line in insert mode" },
-    ["<c-l>"] = { "<c-o>a", desc = "move to next position in insert mode" },
+    ["<c-e>"] = { "<end>", desc = "move to last of the line in insert mode" },
+    ["<c-l>"] = { "<right>", desc = "move to next position in insert mode" },
   },
   t = {
     -- setting a mapping to false will disable it

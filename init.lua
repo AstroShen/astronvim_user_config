@@ -1,8 +1,14 @@
 local config = {
+  highlights = {
+    init = {
+      WinSeparator = { fg = "#6C6C6C" }
+    }
+  },
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
     virtual_text = true,
     underline = true,
+    update_in_insert = false,
   },
   lsp = {
     -- customize lsp formatting options
@@ -55,19 +61,6 @@ local config = {
   -- augroups/autocommands and custom filetypes also this just pure lua so
   -- anything that doesn't fit in the normal config locations above can go here
   polish = function()
-    -- Set up custom filetypes
-    -- vim.filetype.add {
-    --   extension = {
-    --     foo = "fooscript",
-    --   },
-    --   filename = {
-    --     ["Foofile"] = "fooscript",
-    --   },
-    --   pattern = {
-    --     ["~/%.config/foo/.*"] = "fooscript",
-    --   },
-    -- }
-    --
     -- Set up autocommands
     local create_autocmd = vim.api.nvim_create_autocmd
 
@@ -86,14 +79,6 @@ local config = {
           command = "setlocal makeprg=g++\\ -std=c++20\\ -g\\ -Wall\\ %:p\\ -o\\ %:p:r",
           group = Au_group.makePrg,
           desc = "make cpp programs"
-        }
-      },
-      {
-        { "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" },
-        {
-          command = "if mode() != 'c' | checktime | endif",
-          pattern = { "*" },
-          desc = "make autoread take effect"
         }
       },
       {
@@ -145,22 +130,6 @@ local config = {
           end,
           group = Au_group.general,
           desc = "add execution rights to script files such as *sh, *.py, etc after :w",
-        }
-      },
-      {
-        "Filetype",
-        {
-          pattern = { "c", "cpp" },
-          command = "setlocal tabstop=2 shiftwidth=2",
-          group = Au_group.cpp,
-        }
-      },
-      {
-        "Filetype",
-        {
-          pattern = "python",
-          command = "setlocal tabstop=4 shiftwidth=4",
-          group = Au_group.python,
         }
       },
       {
