@@ -16,8 +16,8 @@ return {
       vertright = '┣',
       verthoriz = '╋',
     },
-    list = true, -- show whitespace, tab, and linebreak
-    listchars = { trail = "·", tab = "→", eol = "\\u21b5" },
+    list = true, -- show whitespace, and linebreak
+    listchars = { trail = "·", eol = "\\u21b5" },
   },
   g = {
     mapleader = " ", -- sets vim.g.mapleader
