@@ -6,4 +6,4 @@ This repo is to store user configuration for AstroNvim of neovim.
   * Install User Settings
   ```git clone https://github.com/kabinspace/AstroNvim_user ~/.config/nvim/lua/user```
   * Initialize AstroNvim
-  ```nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'```
+  ```nvim  --headless -c 'quitall'```
