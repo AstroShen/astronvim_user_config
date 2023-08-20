@@ -6,8 +6,7 @@ local config = {
   },
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
-    virtual_text = true,
-    underline = true,
+    virtual_text = false,
     update_in_insert = false,
   },
   lsp = {
@@ -15,7 +14,7 @@ local config = {
     formatting = {
       -- control auto formatting on save
       format_on_save = {
-        enabled = true, -- enable or disable format on save globally allow_filetypes = { -- enable format on save for specified filetypes only
+        enabled = true,    -- enable or disable format on save globally allow_filetypes = { -- enable format on save for specified filetypes only
       },
       ignore_filetypes = { -- disable format on save for specified filetypes
         -- "python",
@@ -88,6 +87,15 @@ local config = {
           command = "setlocal makeprg=%:p",
           group = Au_group.makePrg,
           desc = "run scripts programs"
+        }
+      },
+      {
+        'BufEnter',
+        {
+          pattern = { "*.lua", "*.vim" },
+          command = "nnoremap <buffer> <leader>m :update<cr>:source %<cr>",
+          group = Au_group.makePrg,
+          desc = "run vim/lua scripts"
         }
       },
       {
