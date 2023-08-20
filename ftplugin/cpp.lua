@@ -1,10 +1,10 @@
-function _G.generate_source_file()
+function _G.generate_cpp_source_file()
   local bufnr = vim.api.nvim_get_current_buf()
   local line_count = vim.api.nvim_buf_line_count(bufnr)
   local lines = vim.api.nvim_buf_get_lines(bufnr, 0, line_count, false)
   local namespace_name = nil
   for _, line in ipairs(lines) do
-    local match = string.match(line, "^namespace (.*) {")
+    local match = string.match(line, "^namespace (%w+)")
     if match then
       namespace_name = match
       break
@@ -44,3 +44,31 @@ function _G.generate_source_file()
     end
   end
 end
+
+function _G.copy_member_func_implementation()
+  local buf = vim.api.nvim_get_current_buf()
+  local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+  local lines = vim.api.nvim_buf_get_lines(buf, 0, row, false)
+  local class_name = nil
+  for i = row- 1, 1, -1 do
+    local match = string.match(lines[i], "class (%w+)") -- note there is notion before class
+    if match then
+      class_name = match
+      break
+    end
+  end
+
+  local current_line = vim.api.nvim_get_current_line();
+  
+  current_line = string.gsub(current_line, "static%f[^%a%d]", "")
+  current_line = string.gsub(current_line, "virtual%f[^%a%d]", "")
+  current_line = string.gsub(current_line, "override%f[^%a%d]", "")
+  current_line = string.gsub(current_line, ";", "")
+  local _, return_type, rest = string.match(current_line, "( *)(%w+) (.+)")
+  current_line = string.format("%s %s::%s {}", return_type, class_name, rest)
+
+  vim.cmd(string.format("let @+='%s'" , current_line))
+end
+
+vim.api.nvim_buf_set_keymap(0, 'n', '<leader><leader>c', ':lua generate_cpp_source_file()<cr>', {desc = "create source file in cpp"})
+vim.api.nvim_buf_set_keymap(0, 'n', '<leader>yy', ':lua copy_member_func_implementation()<cr>', {desc = "copy class member declaration"})
