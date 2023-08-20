@@ -4,6 +4,7 @@ This repo is to store user configuration for AstroNvim of neovim.
   * Install AstroNvim
   ```git clone https://github.com/AstroNvim/AstroNvim.git ~/.config/nvim```
   * Install User Settings
-  ```git clone https://github.com/kabinspace/AstroNvim_user ~/.config/nvim/lua/user```
+  ```git clone https://github.com/AstroShen/astronvim_user_config.git ~/.config/nvim/lua/user```
+  ```ln -s ~/.config/nvim/lua/user/ftplugin ~/.config/nvim/```
   * Initialize AstroNvim
   ```nvim  --headless -c 'quitall'```
