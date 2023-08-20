@@ -18,6 +18,8 @@ return {
     ["<leader>s"] = { ":ClangdSwitchSourceHeader<cr>", desc = "siwtch source and header file" },
     ["leader>m"] = { ":AsyncRun -program=make<cr>", desc = "Run make program async" },
     ["<leader>M"] = { ":AsyncRun -program=make && %:p:r<cr>", desc = "Run make program and execute async" },
+    ["gh"] = { ":help <c-r><c-w><cr>", desc = "help word under cursor" },
+    ["<leader><leader>c"] = { ":lua generate_source_file()<cr>", desc = "create source file in cpp" },
   },
 
   i = {
