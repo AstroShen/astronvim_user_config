@@ -4,7 +4,7 @@ function _G.generate_cpp_source_file()
   local lines = vim.api.nvim_buf_get_lines(bufnr, 0, line_count, false)
   local namespace_name = nil
   for _, line in ipairs(lines) do
-    local match = string.match(line, "^namespace (%w+)")
+    local match = string.match(line, "^namespace ([%w:]+)")
     if match then
       namespace_name = match
       break

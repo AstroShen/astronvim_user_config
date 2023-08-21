@@ -1,3 +1,8 @@
+local grepprg = "grep -n "
+if vim.fn.executable('rg') == 1 then
+  grepprg = 'rg --vimgrep '
+end
+
 -- set vim options here (vim.<first_key>.<second_key> = value)
 return {
   opt = {
@@ -18,6 +23,9 @@ return {
     },
     list = true, -- show whitespace, and linebreak
     listchars = { trail = "·", eol = "\\u21b5" },
+    secure = true,
+    exrc = true,
+    grepprg = grepprg,
   },
   g = {
     mapleader = " ", -- sets vim.g.mapleader
