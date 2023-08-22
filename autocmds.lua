@@ -86,6 +86,15 @@ local definitions = {
     },
   },
   {
+    "CursorHold",
+    {
+      pattern = { "*.cpp", "*.sh", "*.lua", "*.py" },
+      command = "lua vim.diagnostic.open_float()",
+      group = Au_group.general,
+      desc = "show diagnostic",
+    },
+  },
+  {
     "BufWritePre",
     {
       pattern = "*",
