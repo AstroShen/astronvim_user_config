@@ -59,7 +59,7 @@ local config = {
   -- This function is run last and is a good place to configuring
   -- augroups/autocommands and custom filetypes also this just pure lua so
   -- anything that doesn't fit in the normal config locations above can go here
-  polish = function() require "autocmds" end,
+  polish = function() require "user.autocmds" end,
 }
 
 return config
