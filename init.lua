@@ -1,8 +1,8 @@
 local config = {
   highlights = {
     init = {
-      WinSeparator = { fg = "#6C6C6C" }
-    }
+      WinSeparator = { fg = "#6C6C6C" },
+    },
   },
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
@@ -14,7 +14,7 @@ local config = {
     formatting = {
       -- control auto formatting on save
       format_on_save = {
-        enabled = true,    -- enable or disable format on save globally allow_filetypes = { -- enable format on save for specified filetypes only
+        enabled = true, -- enable or disable format on save globally allow_filetypes = { -- enable format on save for specified filetypes only
       },
       ignore_filetypes = { -- disable format on save for specified filetypes
         -- "python",
@@ -37,7 +37,7 @@ local config = {
     -- end
     -- enable servers that you already have installed without mason
     servers = {
-      "clangd"
+      "clangd",
     },
   },
   -- Configure require("lazy").setup() options
@@ -59,128 +59,7 @@ local config = {
   -- This function is run last and is a good place to configuring
   -- augroups/autocommands and custom filetypes also this just pure lua so
   -- anything that doesn't fit in the normal config locations above can go here
-  polish = function()
-    -- Set up autocommands
-    local create_autocmd = vim.api.nvim_create_autocmd
-
-    Au_group = {
-      cpp = vim.api.nvim_create_augroup("cpp_group", { clear = true }),
-      python = vim.api.nvim_create_augroup("python_group", { clear = true }),
-      general = vim.api.nvim_create_augroup("general", { clear = true }),
-      makePrg = vim.api.nvim_create_augroup("makePrg", { clear = true }),
-    }
-
-    local definitions = {
-      {
-        'BufEnter',
-        {
-          pattern = "*.cpp",
-          command = "setlocal makeprg=g++\\ -std=c++20\\ -g\\ -Wall\\ %:p\\ -o\\ %:p:r",
-          group = Au_group.makePrg,
-          desc = "make cpp programs"
-        }
-      },
-      {
-        'BufEnter',
-        {
-          pattern = { "*.py", "*.sh", "*.csh", "*.pl", "*.lua" },
-          command = "setlocal makeprg=%:p",
-          group = Au_group.makePrg,
-          desc = "run scripts programs"
-        }
-      },
-      {
-        'BufEnter',
-        {
-          pattern = { "*.lua", "*.vim" },
-          command = "nnoremap <buffer> <leader>m :update<cr>:source %<cr>",
-          group = Au_group.makePrg,
-          desc = "run vim/lua scripts"
-        }
-      },
-      {
-        "BufReadPost",
-        {
-          command = [[if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif]],
-          group = Au_group.general,
-          desc = "Restore the cursor position when opening a file",
-        }
-      },
-      {
-        'QuickFixCmdPost',
-        {
-          pattern = "[^l]*",
-          nested = true,
-          command = "botright copen",
-          group = Au_group.general,
-          desc = "automatically open quickfix window",
-        }
-      },
-      {
-        'QuickFixCmdPost',
-        {
-          pattern = "l*",
-          nested = true,
-          command = "lwindow",
-          group = Au_group.general,
-          desc = "automatically open quickfix window",
-        }
-      },
-      {
-        'BufWritePost',
-        {
-          pattern = { "*.py", "*.pl", "*.csh", "*.tcsh", "*.sh" },
-          callback = function()
-            local first_line = vim.api.nvim_buf_get_lines(0, 0, 1, true)[1]
-            if string.match(first_line, "^#!") then
-              vim.api.nvim_command("silent !chmod +x <afile>")
-            end
-          end,
-          group = Au_group.general,
-          desc = "add execution rights to script files such as *sh, *.py, etc after :w",
-        }
-      },
-      {
-        'TextYankPost',
-        {
-          pattern = '*',
-          callback = function() vim.highlight.on_yank { timeout = 500 } end,
-          group = Au_group.general,
-          desc = "highlight yanks",
-        }
-      },
-      {
-        'BufWritePre',
-        {
-          pattern = '*',
-          command = 'call mkdir(expand("<afile>:p:h"), "p")',
-          group = Au_group.general,
-          desc = "create non-exist directory when saving files",
-        }
-      },
-      {
-        'User',
-        {
-          pattern = 'AsyncRunStop',
-          command = 'bot copen',
-          group = Au_group.general,
-          desc = "create non-exist directory when saving files",
-        }
-      },
-    }
-
-    for _, entry in ipairs(definitions) do
-      local event = entry[1]
-      local opts = entry[2]
-      if type(opts.group) == "string" and opts.group ~= "" then
-        local exists, _ = pcall(vim.api.nvim_get_autocmds, { group = opts.group })
-        if not exists then
-          vim.api.nvim_create_augroup(opts.group, {})
-        end
-      end
-      vim.api.nvim_create_autocmd(event, opts)
-    end
-  end
+  polish = function() require "autocmds" end,
 }
 
 return config
