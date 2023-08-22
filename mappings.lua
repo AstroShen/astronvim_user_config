@@ -26,13 +26,11 @@ return {
     ["<leader>M"] = { ":AsyncRun -program=make && %:p:r<cr>", desc = "Run make program and execute async" },
     ["gh"] = { ":help <c-r><c-w><cr>", desc = "help word under cursor" },
   },
-
   i = {
     ["<c-e>"] = { "<end>", desc = "move to last of the line in insert mode" },
     ["<c-l>"] = { "<right>", desc = "move to next position in insert mode" },
   },
   t = {
-    -- setting a mapping to false will disable it
-    -- ["<esc>"] = false,
+    ["<c-'>"] = { "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" },
   },
 }
