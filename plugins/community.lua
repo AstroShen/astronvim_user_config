@@ -7,6 +7,5 @@ return {
   { import = "astrocommunity.pack.python" },
   { import = "astrocommunity.pack.lua", enabled = false },
   { import = "astrocommunity.editing-support.zen-mode-nvim" },
-  { import = "astrocommunity.bars-and-lines.lualine-nvim" },
   { import = "astrocommunity.code-runner.sniprun" },
 }

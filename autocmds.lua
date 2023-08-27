@@ -19,6 +19,15 @@ local definitions = {
     },
   },
   {
+    "FileType",
+    {
+      pattern = "cpp",
+      command = "set tabstop=4 shiftwidth=4 expandtab",
+      group = Au_group.cpp,
+      desc = "cpp tab set to 4",
+    },
+  },
+  {
     "BufEnter",
     {
       pattern = { "*.py", "*.sh", "*.csh", "*.pl", "*.lua" },
@@ -88,8 +97,8 @@ local definitions = {
   {
     "CursorHold",
     {
-      pattern = { "*.cpp", "*.sh", "*.lua", "*.py" },
-      command = "lua vim.diagnostic.open_float()",
+      pattern = "*",
+      command = "lua vim.diagnostic.open_float(nil, {focus = false})",
       group = Au_group.general,
       desc = "show diagnostic",
     },

@@ -1,7 +1,5 @@
 local grepprg = "grep -n "
-if vim.fn.executable('rg') == 1 then
-  grepprg = 'rg --vimgrep '
-end
+if vim.fn.executable "rg" == 1 then grepprg = "rg --vimgrep " end
 
 -- set vim options here (vim.<first_key>.<second_key> = value)
 return {
@@ -12,14 +10,15 @@ return {
     spell = false, -- sets vim.opt.spell
     wrap = false, -- sets vim.opt.wrap
     autoread = true, -- auto reload buffer when changed on disk
+    showtabline = 0, -- hide tabline
     fillchars = {
-      horiz = '━',
-      horizup = '┻',
-      horizdown = '┳',
-      vert = '┃',
-      vertleft  = '┫',
-      vertright = '┣',
-      verthoriz = '╋',
+      horiz = "━",
+      horizup = "┻",
+      horizdown = "┳",
+      vert = "┃",
+      vertleft = "┫",
+      vertright = "┣",
+      verthoriz = "╋",
     },
     list = true, -- show whitespace, and linebreak
     listchars = { trail = "·", eol = "\\u21b5" },
