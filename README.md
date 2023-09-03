@@ -8,7 +8,9 @@ This repo is to store user configuration for applications in unix OS
   ```
   * Install User Settings
   ```
-  ln -s ~/.config/nvim/lua/user/ftplugin ~/.config/nvim/ 
+  mkdir $HOME/.config/nvim/lua/user
+  cd dotfiles
+  ln -s $(pwd)/.config/nvim/* $HOME/.config/nvim/lua/user
   ```
   * Initialize AstroNvim
   ```
